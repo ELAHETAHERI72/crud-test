@@ -1,0 +1,73 @@
+*{
+    margin: 0;
+    padding: 0;
+    outline: none !important;
+    font-family:  dana;
+}
+
+
+*[disabled]{
+   cursor: not-allowed !important;
+   opacity: 0.6;
+   font-family: dana !important;
+
+}
+
+h1,h2,h3,h4,h5,a,p,button,label,span{
+    font-family: dana !important;
+}
+
+i{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+
+a{
+    text-decoration: none;
+}
+
+body{
+   font-family: dana  !important;
+   height: 100%;
+   font-size: 14px !important;
+   font-weight: 500;
+   height: 100vh;
+   color: $gray-900;
+   direction: rtl !important;
+}
+
+.rtl{
+    direction: rtl !important;
+}
+
+.main-content{
+    padding-left: 80px;
+    padding-right: 80px;
+}
+.hidden{
+    display: none ;
+}
+
+.primary{
+   color: $primary;
+}
+
+.devider{
+    display: flex !important;
+    width: 1px !important;
+    height: 32px !important;
+    background: $primary !important;
+    -webkit-box-align: center !important;
+    align-items: center !important;
+    -webkit-box-pack: center !important;
+    justify-content: center !important;
+    margin: auto !important;
+}
+
+.font-400{
+    font-weight: 400;
+}
+.footer-wrapper{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
