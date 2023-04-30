@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 
@@ -8,10 +9,12 @@ import { AgGridModule } from 'ag-grid-angular';
   declarations: [],
   imports: [
     CommonModule,
-    AgGridModule
+    AgGridModule,
+    MatDialogModule
   ],
   exports:[
-    AgGridModule
+    AgGridModule,
+    MatDialogModule
   ]
 })
 export class SharedModule { }
