@@ -1,4 +1,11 @@
 @import './core/typography.scss';
+@import './core/var.scss';
 
 @import './core/base.scss';
 
+@import './extends/dialog-form.scss';
+
+
+
+@import './content/button.scss';
+@import './content/forms.scss';

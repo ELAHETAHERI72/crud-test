@@ -31,6 +31,8 @@ rowData = [
   openDialog(): void {
     const dialogRef = this.dialog.open(AddNewCustomerDialogComponent, {
       data: {},
+      panelClass:['dialog-form-container'],
+      backdropClass:['']
     });
 
     dialogRef.afterClosed().subscribe(result => {

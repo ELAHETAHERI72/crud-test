@@ -1,0 +1,245 @@
+.btn-default{
+   border: none;
+   text-align: center;
+   color: $gray-900 $i;
+   border-radius: 8px;
+   padding-top: 8px;
+   padding-bottom: 8px;
+   padding-left: 12px;
+   padding-right: 12px;
+   font-size: 14px $i;
+   font-weight: 500;
+   
+   &:disabled{
+       cursor: not-allowed $i;
+       opacity: 0.4 $i;
+    }
+}
+
+.btn-light-gray{
+  background-color: $gray-400;
+    color: $gray-900 $i;
+    font-size: 14px !important;
+}
+
+.btn-block {
+  width: 100%;
+  display: block;
+}
+.btn-rounded{
+  border-radius: 100%;
+  background-color: transparent $i;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  i{
+    font-size: 34px;
+    color: $gray-500;
+  }
+}
+.btn-sm {
+  min-height: 0 $i;
+  padding: 4px;
+}
+
+.btn-primary-outline{
+  border: 2px solid $primary $i;
+  background-color: #fff;
+  color: $primary $i;
+  font-weight: 600;
+  i{
+    color: $primary $i;
+    font-size: 15px;
+
+  }
+}
+.btn-full{
+  width: 100%;
+}
+.btn-orange{
+  background-color: $orange;
+}
+.btn-larg{
+  min-width: 302px;
+  min-height: 38px;
+}
+.btn-success{
+    background-color: $success $i;
+    color: $white $i;
+    &:hover{
+        background-color: $success $i;
+    }
+    &:focus{
+        background-color: $success $i;
+        
+     }
+}
+.btn-link{
+  color: $primary;
+  text-decoration-line: underline $i;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.btn-primary{
+    background-color: $primary $i;
+    color: $white $i;
+  
+}
+
+.btn-primary-light{
+    background-color: $primary-100 $i;
+    color: $primary $i;
+}
+
+.btn-primary-outline {
+    color: $primary $i;
+    border: 1px solid $primary;
+    background: $white;
+}
+
+.btn-secondary{
+    background-color: $gray-400 $i;
+    color: $gray-800 $i;
+
+}
+
+.btn-with-loader {
+    .btn-text {
+      display: block;
+      transition: all 0.4s;
+      transform: scale(1);
+    }
+    .btn-loader-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.4s;
+      transform: scale(0);
+      .btn-loader {
+        width: 18px;
+        height: 18px;
+        border-radius: 100%;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        padding: 4px;
+        display: block;
+        border-top-color: $white;
+        transition: all 0.4s;
+        animation: btn-spinner 0.6s linear infinite;
+      }
+    }
+  }
+  
+  .active-btn-loader {
+    .btn-text {
+      transform: scale(0) $i;
+    }
+    .btn-loader-container {
+      transform: scale(1) $i;
+    }
+  }
+
+  .btn-upload{
+    label{
+      width: 100%;
+      background: $primary;
+      color: $white;
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    input[type=file]{
+      display: none;
+    }
+  }
+  
+  @keyframes btn-spinner {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+.button-fixed{
+  position: fixed;
+  bottom: 16px;
+  left: 12px;
+  right: 12px;
+  height: 48px $i;
+}
+
+
+.btn-inline{
+   border-bottom: 1px solid $success;
+} 
+
+.btn-successfull{
+   color: $success;
+}
+
+.btn-success-top-dotted{
+  border-top: 2px dotted $white $i;
+  background-color: $success-400;
+  width: 50%;
+  &:focus{
+    opacity: 0.7;
+  }
+  border-radius: 0 0 8px 0px;
+  color: $white $i;
+  height: 48px;
+  z-index: 0;
+  bottom: 0;
+  right:0;
+}
+
+.btn-success-400{
+  background-color: $success-400;
+  color: $white $i;
+}
+
+.btn-info-top-dotted{
+  border-top: 2px dotted $white $i;
+  background-color: $primary;
+  &:focus{
+    opacity: 0.8;
+  }
+  width: 50%;
+  border-radius: 0 0 0px 8px;
+  color: $white $i;
+  height: 48px;
+  z-index: 0;
+  bottom: 0;
+  left:0
+}
+
+.btn-with-icon{
+  background-color: transparent;
+  span{
+    font-size: 14px;
+    color: $gray-800;
+    font-weight: 500;
+  }
+
+  i{
+    font-size: 18px;
+    color: $gray-800;
+    margin-left: 8px;
+  }
+  &:hover{
+    background-color: $primary;
+    opacity: 04;
+  }
+  
+}
