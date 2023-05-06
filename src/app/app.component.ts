@@ -13,7 +13,6 @@ export class AppComponent {
   title = 'crud-test-angular-latest';
    customers:CustomerModel[]=[]
   constructor(private customerService:CustomerService){
-  
 
   }
 }

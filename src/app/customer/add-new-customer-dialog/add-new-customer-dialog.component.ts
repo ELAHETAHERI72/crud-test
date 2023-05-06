@@ -3,7 +3,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CustomerModel } from 'src/app/shared/models/customer.model';
 import { CustomerService } from 'src/app/shared/services/customer.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 import { UtilService } from 'src/app/shared/services/util.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-add-new-customer-dialog',
@@ -23,7 +25,8 @@ export class AddNewCustomerDialogComponent implements OnInit {
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private customerService:CustomerService,
-    private utilService:UtilService
+    private utilService:UtilService,
+    private notificationService:NotificationService
   ) {
    }
 
@@ -49,7 +52,7 @@ export class AddNewCustomerDialogComponent implements OnInit {
     this.customerForm.patchValue({
       Firstname:item.Firstname,
       Lastname: item.Lastname,
-      BirthDate: item.BirthDate,
+      BirthDate: moment(item.BirthDate).format('D MMM YYYY') ,
       Email:item.Email,
       PhoneNumber:item.PhoneNumber
     })
@@ -74,12 +77,15 @@ export class AddNewCustomerDialogComponent implements OnInit {
 
   addNewCustomers(){
     const customerStorage:any= localStorage.getItem('customers')
-    let customers:CustomerModel[]=JSON.parse(customerStorage);
-    console.log(this.utilService.checkIsNotduplicated(customers,this.customerForm.value));
-    
-   if(this.utilService.checkIsNotduplicated(customers,this.customerForm.value)) {
+    let customers:CustomerModel[]=JSON.parse(customerStorage); 
+
+       console.log(this.utilService.checkIsNotduplicated(customers,this.customerForm.value));
+       
+   if(!this.utilService.checkIsNotduplicated(customers,this.customerForm.value)) {
      this.customerService.addNewCustomer(this.customerForm.value).subscribe(res=>{})
 
+   }else{
+    this.notificationService.error('کاربر تکراری می باشد')
    }
   }
 }

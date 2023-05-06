@@ -23,12 +23,21 @@
   <div class="d-flex  justify-content-between">
     <div class="main-form" style="flex-basis: 48%;">
       <label for="inputAddress my-1">تاریخ تولد</label>
-      <input
+      <!-- <input
         formControlName="BirthDate"
         type="text"
         class="form-control"
         id="inputAddress"
-      />
+      /> -->
+
+   <div class="d-flex justify-content-between  main-form-with-icon">
+    
+    <input matInput class="form-control" [matDatepicker]="picker" formControlName="BirthDate">
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+   </div>
+   
+      
     </div>
 
     <div class="main-form" style="flex-basis: 48%;" [ngClass]="{'input-error': PhoneNumber?.touched &&

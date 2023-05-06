@@ -26,7 +26,7 @@
        border-radius: 8px;
        border: 1px solid $gray-500;
        text-align: right;
-       height: 48px;
+       height: 54.2px;
        display: flex;
        align-items: center;
        &:hover{
@@ -81,6 +81,14 @@
          top: 39px;
          color: $gray-700;
          font-size: 20px;
+     }
+
+     span{
+        position: absolute;
+        left: 6px;
+        top: 39px;
+        color: $gray-700;
+        font-size: 20px;
      }
      button {
         position: absolute;

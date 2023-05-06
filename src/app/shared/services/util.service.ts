@@ -4,15 +4,23 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class UtilService {
+
+
   public checkIsNotduplicated(arr: any[], object: any) {
-    if (
-      arr.filter((item) => {
-        item.Firstname.trim() == object.Firstname.trim() &&
-          item.Lastname.trim() == object.Lastname.trim() &&
-          item.BirthDate.trim() == object.BirthDate.trim();
-      })
-    ) {
-      return object;
-    }
+     let isDuplicate :boolean =false;;
+   arr.forEach(item=>{
+      if(object.Firstname.trim() != item.Firstname.trim() &&
+       object.Lastname.trim() != item.Lastname.trim()  &&
+       object.BirthDate != item.BirthDate &&
+       object.Email.trim() != item.Email.trim()){
+
+        isDuplicate = false
+         }else{
+          isDuplicate =true
+         }
+
+    })
+      
+    return isDuplicate
   }
 }

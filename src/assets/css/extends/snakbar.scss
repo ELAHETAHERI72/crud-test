@@ -1,0 +1,46 @@
+.mat-snack-bar-container {
+  direction: rtl $i; 
+  }
+  
+  .notification-error {
+    background-color: $danger $i;
+
+  }
+  
+  .notification-success {
+    background-color: $success $i;
+
+  }
+  .notification-warning {
+    background-color: $warning $i;
+    color:  $gray-900 $i;
+
+  }
+
+  .mat-snack-bar-container {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12) $i;
+    border-radius: 12px $i;
+    z-index: 10000;
+    .mat-simple-snackbar {
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      direction: rtl;
+      padding: 4px;
+      text-align: right;
+    }
+  }
+  
+  .snackbar-error {
+    background-color: $danger;
+    color: $white;
+  
+    .mat-simple-snackbar {
+    }
+  }
+  
+  .snackbar-success {
+    background-color: $success;
+    color: $white;
+  }
+  

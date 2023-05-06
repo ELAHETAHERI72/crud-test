@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CustomerModel } from 'src/app/shared/models/customer.model';
 import { CustomerService } from 'src/app/shared/services/customer.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 import { UtilService } from 'src/app/shared/services/util.service';
 
 @Component({
@@ -24,7 +25,7 @@ export class EditCustomerDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private utilService:UtilService,
     private customerService:CustomerService,
-
+    private notificationService:NotificationService
   ) {
    }
 
@@ -77,12 +78,14 @@ export class EditCustomerDialogComponent implements OnInit {
   updateCustomer(){
     const customerStorage:any= localStorage.getItem('customers')
     let customers:CustomerModel[]=JSON.parse(customerStorage);
-    console.log(!this.utilService.checkIsNotduplicated(customers,this.customerForm.value));
     
    if(!this.utilService.checkIsNotduplicated(customers,this.customerForm.value)) {
      this.customerService.
      updateCustomer(this.customerForm.value).subscribe(res=>{})
 
+   }else{
+    this.customerForm.reset()
+      this.notificationService.error('کاربر تکراری می باشد')
    }
   }
 
