@@ -19,28 +19,28 @@ import { CustomerModel } from 'src/app/shared/models/customer.model';
 
 export class CustomerGridComponent implements OnInit {
   columnDefs: ColDef[] = [
-    
+
     { field: 'Firstname' },
     { field: 'Lastname' },
     { field: 'BirthDate' },
     { field: 'PhoneNumber' },
     { field: 'Email' },
-    
+
   ];
 
   rowData = [];
 
-  constructor(private customerService:CustomerService,public dialog: MatDialog){}
+  constructor(private customerService: CustomerService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getAllustomers()
   }
 
 
-  getAllustomers(){
-    this.customerService.getAll().subscribe((res:any)=>{      
+  getAllustomers() {
+    this.customerService.getAll().subscribe((res: any) => {
       this.rowData = res;
-      localStorage.setItem('customers',JSON.stringify(res));
+      localStorage.setItem('customers', JSON.stringify(res));
 
     })
   }
@@ -52,20 +52,22 @@ export class CustomerGridComponent implements OnInit {
       backdropClass: [''],
     });
 
-    dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef.afterClosed().subscribe((result) => {
+      this.getAllustomers()
+    });
   }
   onGridReady(event: any) {
-     
+
   }
   onCellClicked(event: any) {
     const dialogRef = this.dialog.open(EditCustomerDialogComponent, {
-      data: {data:event.data},
+      data: { data: event.data },
       panelClass: ['dialog-form-container'],
       backdropClass: [''],
     });
 
-    dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef.afterClosed().subscribe((result) => { this.getAllustomers() });
 
-    
+
   }
 }

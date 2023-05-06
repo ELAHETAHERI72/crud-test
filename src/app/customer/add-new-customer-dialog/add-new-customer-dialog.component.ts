@@ -17,56 +17,56 @@ export class AddNewCustomerDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.initialCustomerForm();
-    
+
   }
 
   constructor(
     public dialogRef: MatDialogRef<AddNewCustomerDialogComponent>,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private customerService:CustomerService,
-    private utilService:UtilService,
-    private notificationService:NotificationService
+    private customerService: CustomerService,
+    private utilService: UtilService,
+    private notificationService: NotificationService
   ) {
-   }
+  }
 
   initialCustomerForm() {
-    this.customerForm  = this.fb.group({
+    this.customerForm = this.fb.group({
       Firstname: [''],
-      Lastname  : [''],
+      Lastname: [''],
       BirthDate: [''],
       PhoneNumber: ['', Validators.pattern(
-                '^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$'
-              ),],
+        '^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$'
+      ),],
       Email: ['',
-          [
-            Validators.required,
-            Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
-          ],],
-  });
- 
+        [
+          Validators.required,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        ],],
+    });
+
   }
 
 
-  insertValueToForm(item:CustomerModel){
+  insertValueToForm(item: CustomerModel) {
     this.customerForm.patchValue({
-      Firstname:item.Firstname,
+      Firstname: item.Firstname,
       Lastname: item.Lastname,
-      BirthDate: moment(item.BirthDate).format('D MMM YYYY') ,
-      Email:item.Email,
-      PhoneNumber:item.PhoneNumber
+      BirthDate: moment(item.BirthDate).format('YYYY-DD-MM'),
+      Email: item.Email,
+      PhoneNumber: item.PhoneNumber
     })
   }
 
- get getCustomerFormControls(){
+  get getCustomerFormControls() {
     return this.customerForm?.controls;
   }
 
-  get Email(){
+  get Email() {
     return this.customerForm.get('Email')
   }
 
-  get PhoneNumber(){
+  get PhoneNumber() {
     return this.customerForm.get('PhoneNumber')
   }
 
@@ -75,17 +75,22 @@ export class AddNewCustomerDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  addNewCustomers(){
-    const customerStorage:any= localStorage.getItem('customers')
-    let customers:CustomerModel[]=JSON.parse(customerStorage); 
+  addNewCustomers() {
+    const customerStorage: any = localStorage.getItem('customers');
+    let customers: CustomerModel[] = JSON.parse(customerStorage);
+    this.insertValueToForm(this.customerForm.value);
+    console.log(this.utilService.checkIsNotduplicated(customers, this.customerForm.value));
 
-       console.log(this.utilService.checkIsNotduplicated(customers,this.customerForm.value));
-       
-   if(!this.utilService.checkIsNotduplicated(customers,this.customerForm.value)) {
-     this.customerService.addNewCustomer(this.customerForm.value).subscribe(res=>{})
 
-   }else{
-    this.notificationService.error('کاربر تکراری می باشد')
-   }
+    if (this.utilService.checkIsNotduplicated(customers, this.customerForm.value)) {
+
+      this.notificationService.error('کاربر تکراری می باشد')
+
+    } else {
+      this.customerService.addNewCustomer(this.customerForm.value).subscribe(res => {
+        this.dialogRef.close(this.customerForm.value);
+
+      })
+    }
   }
 }

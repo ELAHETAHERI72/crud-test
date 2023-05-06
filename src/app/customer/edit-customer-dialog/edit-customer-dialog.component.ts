@@ -23,50 +23,50 @@ export class EditCustomerDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<EditCustomerDialogComponent>,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private utilService:UtilService,
-    private customerService:CustomerService,
-    private notificationService:NotificationService
+    private utilService: UtilService,
+    private customerService: CustomerService,
+    private notificationService: NotificationService
   ) {
-   }
-
-   initialCustomerForm() {
-    this.customerForm  = this.fb.group({
-      Firstname: [''],
-      Lastname  : [''],
-      BirthDate: [''],
-      PhoneNumber: ['', Validators.pattern(
-                '^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$'
-              ),],
-      Email: ['',
-          [
-            Validators.required,
-            Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
-          ],],
-      id:[]
-  });
- 
   }
 
-  insertValueToForm(item:CustomerModel){
+  initialCustomerForm() {
+    this.customerForm = this.fb.group({
+      Firstname: [''],
+      Lastname: [''],
+      BirthDate: [''],
+      PhoneNumber: ['', Validators.pattern(
+        '^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$'
+      ),],
+      Email: ['',
+        [
+          Validators.required,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        ],],
+      id: []
+    });
+
+  }
+
+  insertValueToForm(item: CustomerModel) {
     this.customerForm.patchValue({
-      Firstname:item.Firstname,
+      Firstname: item.Firstname,
       Lastname: item.Lastname,
       BirthDate: item.BirthDate,
-      Email:item.Email,
-      PhoneNumber:item.PhoneNumber,
-      id:item.id
+      Email: item.Email,
+      PhoneNumber: item.PhoneNumber,
+      id: item.id
     })
   }
 
- get getCustomerFormControls(){
+  get getCustomerFormControls() {
     return this.customerForm?.controls;
   }
 
-  get Email(){
+  get Email() {
     return this.customerForm.get('Email')
   }
 
-  get PhoneNumber(){
+  get PhoneNumber() {
     return this.customerForm.get('PhoneNumber')
   }
 
@@ -75,18 +75,16 @@ export class EditCustomerDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  updateCustomer(){
-    const customerStorage:any= localStorage.getItem('customers')
-    let customers:CustomerModel[]=JSON.parse(customerStorage);
-    
-   if(!this.utilService.checkIsNotduplicated(customers,this.customerForm.value)) {
-     this.customerService.
-     updateCustomer(this.customerForm.value).subscribe(res=>{})
+  updateCustomer() {
+    const customerStorage: any = localStorage.getItem('customers');
+    let customers: CustomerModel[] = JSON.parse(customerStorage);
 
-   }else{
-    this.customerForm.reset()
-      this.notificationService.error('کاربر تکراری می باشد')
-   }
+    this.customerService.
+      updateCustomer(this.customerForm.value).subscribe(res => {
+        this.notificationService.success('به روز رسانی با موفقیت انجام شد ')
+        this.dialogRef.close();
+
+      })
   }
 
 }
