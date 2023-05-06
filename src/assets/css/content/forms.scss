@@ -60,11 +60,11 @@
 
 .input-error{
     .form-control{
-        border: 1px solid $danger $i;
+        border: 1px solid  #DA1212 !important;
     }
 
     .error-message{
-       color: $danger $i;
+       color: #DA1212 !important;
        font-size: 11px;
        font-weight: 500;
        margin-top: 4PX;

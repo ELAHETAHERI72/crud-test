@@ -1,6 +1,6 @@
 <div class="form-container relative" [formGroup]="customerForm">
-  <div class="d-flex">
-    <div class="main-form my-3 w-90">
+  <div class="d-flex justify-content-between">
+    <div class="main-form my-3 " style="flex-basis: 48%;">
       <label for="inputEmail4 my-1">نام</label>
       <input
         formControlName="Firstname"
@@ -9,7 +9,7 @@
         id="inputEmail4"
       />
     </div>
-    <div class="main-form my-3 w-90">
+    <div class="main-form my-3 " style="flex-basis: 48%;">
       <label for="inputPassword4 my-1">نام خانوادگی</label>
       <input
         type="text"
@@ -20,8 +20,8 @@
     </div>
   </div>
 
-  <div class="d-flex">
-    <div class="main-form">
+  <div class="d-flex  justify-content-between">
+    <div class="main-form" style="flex-basis: 48%;">
       <label for="inputAddress my-1">تاریخ تولد</label>
       <input
         formControlName="BirthDate"
@@ -31,7 +31,9 @@
       />
     </div>
 
-    <div class="main-form">
+    <div class="main-form" style="flex-basis: 48%;" [ngClass]="{'input-error': PhoneNumber?.touched &&
+    PhoneNumber?.dirty &&
+    PhoneNumber?.errors}">
       <label for="inputAddress2">شماره تماس</label>
       <input
         type="text"
@@ -39,18 +41,21 @@
         class="form-control"
         id="inputAddress2"
       />
-      <small
+      <small class="error-message"
         *ngIf="
-        PhoneNumber.touched &&
-        PhoneNumber.dirty &&
-        PhoneNumber.errors?.pattern
+        PhoneNumber?.touched &&
+        PhoneNumber?.dirty &&
+        PhoneNumber?.errors
         "
-        >فرمت ایمیل ناصحیح است</small
+        
+        >فرمت شماره تماس ناصحیح است</small
       >
     </div>
   </div>
 
-  <div class="main-form">
+  <div class="main-form" [ngClass]="{'input-error': Email?.touched &&
+  Email?.dirty &&
+  Email?.errors}">
     <label for="inputAddress2">آدرس الکترونیکی</label>
     <input
       type="email"
@@ -59,17 +64,17 @@
       id="inputAddress2"
       
     />
-    <small
+    <small class="error-message"
       *ngIf="
-      Email.touched &&
-      Email.dirty &&
-      Email.errors?.pattern
+      Email?.touched &&
+      Email?.dirty &&
+      Email?.errors
       "
       >فرمت ایمیل ناصحیح است</small
     >
   </div>
 
-  <button type="submit" class="btn-default btn btn-full btn-primary">
+  <button [disabled]="customerForm.invalid" type="submit" class="btn-default btn btn-full btn-primary">
     ثبت
   </button>
 </div>

@@ -4,26 +4,27 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CustomerModel } from 'src/app/shared/models/customer.model';
 
 @Component({
-  selector: 'app-add-new-customer-dialog',
-  templateUrl: './add-new-customer-dialog.component.html',
-  styleUrls: ['./add-new-customer-dialog.component.css'],
+  selector: 'app-edit-customer-dialog',
+  templateUrl: './edit-customer-dialog.component.html',
+  styleUrls: ['./edit-customer-dialog.component.css']
 })
-export class AddNewCustomerDialogComponent implements OnInit {
+export class EditCustomerDialogComponent implements OnInit {
   customerForm!: FormGroup;
 
   ngOnInit(): void {
     this.initialCustomerForm();
+    this.insertValueToForm(this.data.data);
     
   }
 
   constructor(
-    public dialogRef: MatDialogRef<AddNewCustomerDialogComponent>,
+    public dialogRef: MatDialogRef<EditCustomerDialogComponent>,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
    }
 
-  initialCustomerForm() {
+   initialCustomerForm() {
     this.customerForm  = this.fb.group({
       Firstname: [''],
       Lastname  : [''],
@@ -67,4 +68,5 @@ export class AddNewCustomerDialogComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
 }
