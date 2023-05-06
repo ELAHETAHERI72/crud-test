@@ -79,8 +79,6 @@ export class AddNewCustomerDialogComponent implements OnInit {
     const customerStorage: any = localStorage.getItem('customers');
     let customers: CustomerModel[] = JSON.parse(customerStorage);
     this.insertValueToForm(this.customerForm.value);
-    console.log(this.utilService.checkIsNotduplicated(customers, this.customerForm.value));
-
 
     if (this.utilService.checkIsNotduplicated(customers, this.customerForm.value)) {
 

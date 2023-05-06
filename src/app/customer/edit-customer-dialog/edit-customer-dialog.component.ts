@@ -5,6 +5,7 @@ import { CustomerModel } from 'src/app/shared/models/customer.model';
 import { CustomerService } from 'src/app/shared/services/customer.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { UtilService } from 'src/app/shared/services/util.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-edit-customer-dialog',
@@ -51,7 +52,7 @@ export class EditCustomerDialogComponent implements OnInit {
     this.customerForm.patchValue({
       Firstname: item.Firstname,
       Lastname: item.Lastname,
-      BirthDate: item.BirthDate,
+      BirthDate: moment(item.BirthDate).format('YYYY-DD-MM'),
       Email: item.Email,
       PhoneNumber: item.PhoneNumber,
       id: item.id
@@ -78,13 +79,21 @@ export class EditCustomerDialogComponent implements OnInit {
   updateCustomer() {
     const customerStorage: any = localStorage.getItem('customers');
     let customers: CustomerModel[] = JSON.parse(customerStorage);
+    this.insertValueToForm(this.customerForm.value);
 
-    this.customerService.
-      updateCustomer(this.customerForm.value).subscribe(res => {
-        this.notificationService.success('به روز رسانی با موفقیت انجام شد ')
-        this.dialogRef.close();
 
-      })
+    if (this.utilService.checkIsNotduplicated(customers, this.customerForm.value)) {
+      this.notificationService.error('فیلد تکراری می باشد')
+
+    }
+    else {
+      this.customerService.
+        updateCustomer(this.customerForm.value).subscribe(res => {
+          this.notificationService.success('به روز رسانی با موفقیت انجام شد ')
+          this.dialogRef.close();
+
+        })
+    }
   }
 
 }
