@@ -2,6 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CustomerModel } from 'src/app/shared/models/customer.model';
+import { CustomerService } from 'src/app/shared/services/customer.service';
+import { UtilService } from 'src/app/shared/services/util.service';
 
 @Component({
   selector: 'app-edit-customer-dialog',
@@ -14,13 +16,15 @@ export class EditCustomerDialogComponent implements OnInit {
   ngOnInit(): void {
     this.initialCustomerForm();
     this.insertValueToForm(this.data.data);
-    
   }
 
   constructor(
     public dialogRef: MatDialogRef<EditCustomerDialogComponent>,
     private fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private utilService:UtilService,
+    private customerService:CustomerService,
+
   ) {
    }
 
@@ -37,10 +41,10 @@ export class EditCustomerDialogComponent implements OnInit {
             Validators.required,
             Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
           ],],
+      id:[]
   });
  
   }
-
 
   insertValueToForm(item:CustomerModel){
     this.customerForm.patchValue({
@@ -48,7 +52,8 @@ export class EditCustomerDialogComponent implements OnInit {
       Lastname: item.Lastname,
       BirthDate: item.BirthDate,
       Email:item.Email,
-      PhoneNumber:item.PhoneNumber
+      PhoneNumber:item.PhoneNumber,
+      id:item.id
     })
   }
 
@@ -67,6 +72,18 @@ export class EditCustomerDialogComponent implements OnInit {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  updateCustomer(){
+    const customerStorage:any= localStorage.getItem('customers')
+    let customers:CustomerModel[]=JSON.parse(customerStorage);
+    console.log(!this.utilService.checkIsNotduplicated(customers,this.customerForm.value));
+    
+   if(!this.utilService.checkIsNotduplicated(customers,this.customerForm.value)) {
+     this.customerService.
+     updateCustomer(this.customerForm.value).subscribe(res=>{})
+
+   }
   }
 
 }

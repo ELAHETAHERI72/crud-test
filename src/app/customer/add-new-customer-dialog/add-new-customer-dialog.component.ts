@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CustomerModel } from 'src/app/shared/models/customer.model';
 import { CustomerService } from 'src/app/shared/services/customer.service';
+import { UtilService } from 'src/app/shared/services/util.service';
 
 @Component({
   selector: 'app-add-new-customer-dialog',
@@ -21,7 +22,8 @@ export class AddNewCustomerDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<AddNewCustomerDialogComponent>,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private customerService:CustomerService
+    private customerService:CustomerService,
+    private utilService:UtilService
   ) {
    }
 
@@ -71,6 +73,13 @@ export class AddNewCustomerDialogComponent implements OnInit {
   }
 
   addNewCustomers(){
-    this.customerService.addNewCustomer(this.customerForm.value).subscribe(res=>{})
+    const customerStorage:any= localStorage.getItem('customers')
+    let customers:CustomerModel[]=JSON.parse(customerStorage);
+    console.log(this.utilService.checkIsNotduplicated(customers,this.customerForm.value));
+    
+   if(this.utilService.checkIsNotduplicated(customers,this.customerForm.value)) {
+     this.customerService.addNewCustomer(this.customerForm.value).subscribe(res=>{})
+
+   }
   }
 }

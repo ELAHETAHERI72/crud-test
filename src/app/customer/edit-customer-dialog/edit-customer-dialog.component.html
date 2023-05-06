@@ -74,7 +74,7 @@
       >
     </div>
   
-    <button [disabled]="customerForm.invalid" type="submit" class="btn-default btn btn-full btn-primary">
+    <button [disabled]="customerForm.invalid" (click)="updateCustomer()" type="submit" class="btn-default btn btn-full btn-primary">
       ثبت
     </button>
   </div>
