@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CustomerModel } from './shared/models/customer.model';
+import { CustomerService } from './shared/services/customer.service';
 
 
 
@@ -11,8 +12,8 @@ import { CustomerModel } from './shared/models/customer.model';
 export class AppComponent {
   title = 'crud-test-angular-latest';
    customers:CustomerModel[]=[]
-  constructor(){
-    this.customers = customer
-    localStorage.setItem('customers',JSON.stringify(this.customers))
+  constructor(private customerService:CustomerService){
+  
+
   }
 }

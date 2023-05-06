@@ -4,4 +4,5 @@ export class CustomerModel{
 	BirthDate!:string;
 	PhoneNumber!:string;
 	Email!:string;
+	id?:any;
 }

@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CustomerModel } from 'src/app/shared/models/customer.model';
+import { CustomerService } from 'src/app/shared/services/customer.service';
 
 @Component({
   selector: 'app-add-new-customer-dialog',
@@ -19,7 +20,8 @@ export class AddNewCustomerDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AddNewCustomerDialogComponent>,
     private fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private customerService:CustomerService
   ) {
    }
 
@@ -66,5 +68,9 @@ export class AddNewCustomerDialogComponent implements OnInit {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  addNewCustomers(){
+    this.customerService.addNewCustomer(this.customerForm.value).subscribe(res=>{})
   }
 }

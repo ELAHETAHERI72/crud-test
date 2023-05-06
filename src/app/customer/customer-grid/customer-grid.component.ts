@@ -8,6 +8,8 @@ import { ColDef, ICellRendererParams } from 'ag-grid-community';
 import { AddNewCustomerDialogComponent } from '../add-new-customer-dialog/add-new-customer-dialog.component';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { EditCustomerDialogComponent } from '../edit-customer-dialog/edit-customer-dialog.component';
+import { CustomerService } from 'src/app/shared/services/customer.service';
+import { CustomerModel } from 'src/app/shared/models/customer.model';
 
 @Component({
   selector: 'app-customer-grid',
@@ -26,33 +28,22 @@ export class CustomerGridComponent implements OnInit {
     
   ];
 
-  rowData = [
-    {
-      Firstname: 'Toyota',
-      Lastname: 'Celica',
-      BirthDate: 35000,
-      PhoneNumber: '09228350032',
-      Email: 'elahe.ta.72@gmail.com',
-    },
-    {
-      Firstname: 'Toyota',
-      Lastname: 'Celica',
-      BirthDate: 35000,
-      PhoneNumber: '09228350032',
-      Email: 'elahe.ta.72@gmail.com',
-    },
-    {
-      Firstname: 'Toyota',
-      Lastname: 'Celica',
-      BirthDate: 35000,
-      PhoneNumber: '09228350032',
-      Email: 'elahe.ta.72@gmail.com',
-    },
-  ];
+  rowData = [];
 
-  constructor(public dialog: MatDialog) {}
+  constructor(private customerService:CustomerService,public dialog: MatDialog){}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getAllustomers()
+  }
+
+
+  getAllustomers(){
+    this.customerService.getAll().subscribe((res:any)=>{      
+      this.rowData = res;
+      localStorage.setItem('customers',JSON.stringify(res));
+
+    })
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddNewCustomerDialogComponent, {
@@ -78,25 +69,3 @@ export class CustomerGridComponent implements OnInit {
     
   }
 }
-
-
-// @Component({
-//   selector: 'btn-cell-renderer',
-//   template: `
-//     <button (click)="btnClickedHandler($event)">Click me!</button>
-//   `,
-// })
-// export class BtnCellRenderer implements ICellRendererAngularComp {
-//   refresh(params: ICellRendererParams<any, any, any>): boolean {
-//     throw new Error('Method not implemented.');
-//   }
-//   private params: any;
-
-//   agInit(params: any): void {
-//     this.params = params;
-//   }
-
-//   btnClickedHandler(event:any) {
-//     this.params.clicked(this.params.value);
-//   }
-// }
